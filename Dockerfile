@@ -3,6 +3,8 @@
 # Upstream: https://www.phpmyadmin.net/ / https://github.com/phpmyadmin/docker
 # Maintainer: Daniel G. Cosenza from FNX Labs
 
+ARG PHP_BASE=php:8.3.37-apache-trixie@sha256:fb5e44981a84757b95cd29440f534509f42a9766382c8c83bfd404924a62379b
+ARG COMPOSER_BASE=composer:2@sha256:0049ce90b432795bf413a738b073963ada1a689e1a8708104684baafe94586ec
 ARG PHP_VERSION=8.3.37
 ARG PMA_VERSION=5.2.3
 # Official phpMyAdmin release signing key (Isaac Bennetch)
@@ -13,8 +15,12 @@ ARG IMAGE_CREATED=1970-01-01T00:00:00Z
 ARG IMAGE_REVISION=dev
 ARG IMAGE_SOURCE=https://github.com/dgcosenza/phpmyadmin-docker
 
+FROM ${COMPOSER_BASE} AS composer-bin
+
 # ---- Stage 1: Hardened PHP 8.3 + Apache on Debian 13 (trixie) base ----
-FROM php:${PHP_VERSION}-apache-trixie AS base
+FROM ${PHP_BASE} AS base
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ARG UPLOAD_PROGRESS_VERSION
 ARG UPLOAD_PROGRESS_SHA256
@@ -52,7 +58,7 @@ RUN set -eux; \
     rm -rf /tmp/uploadprogress; \
     \
     apt-mark auto '.*' > /dev/null; \
-    apt-mark manual ${savedAptMark} > /dev/null; \
+    printf '%s\n' "${savedAptMark}" | xargs -r apt-mark manual > /dev/null; \
     extdir="$(php -r 'echo ini_get("extension_dir");')"; \
     ldd "${extdir}"/*.so \
         | awk '/=>/ { so = $(NF-1); if (index(so, "/usr/local/") == 1) { next }; gsub("^/(usr/)?", "", so); print so }' \
@@ -64,18 +70,23 @@ RUN set -eux; \
     \
     a2enmod remoteip; \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
-    rm -rf /var/lib/apt/lists/*; \
+    apt-get clean; \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*; \
     ldd "${extdir}"/*.so | grep -qzv "=> not found"; \
     php --version
 
 # ---- Stage 2: Verify phpMyAdmin tarball (SHA256 + GPG) and patch PHP vendor deps ----
 FROM base AS pma-builder
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 ARG PMA_VERSION
 ARG PMA_GPG_FPR
 ARG DEBIAN_FRONTEND=noninteractive
 
-COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
+COPY --from=composer-bin /usr/bin/composer /usr/local/bin/composer
+
+WORKDIR /var/www/html
 
 RUN set -eux; \
     apt-get update; \
@@ -105,7 +116,6 @@ RUN set -eux; \
     \
     # Strip require-dev and dev-only VCS repositories, then refresh production \
     # Composer dependencies to patch known vendor CVEs (Twig, Symfony). \
-    cd /var/www/html; \
     php -r '$j = json_decode(file_get_contents("composer.json"), true); unset($j["require-dev"]); $j["repositories"] = array_values(array_filter($j["repositories"] ?? [], fn($r) => ($r["type"] ?? "") !== "github")); file_put_contents("composer.json", json_encode($j, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n");'; \
     COMPOSER_ALLOW_SUPERUSER=1 COMPOSER_NO_INTERACTION=1 \
         composer update --no-dev --no-progress --prefer-dist --optimize-autoloader --with-all-dependencies; \
@@ -126,6 +136,8 @@ RUN set -eux; \
 # ---- Stage 3: Minimal runtime image ----
 FROM base AS runtime
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 ARG PHP_VERSION
 ARG PMA_VERSION
 ARG IMAGE_CREATED
@@ -142,8 +154,8 @@ LABEL org.opencontainers.image.title="phpMyAdmin on Debian 13 (trixie)" \
       org.opencontainers.image.documentation="${IMAGE_SOURCE}#readme" \
       org.opencontainers.image.vendor="Daniel G. Cosenza from FNX Labs" \
       org.opencontainers.image.authors="Daniel G. Cosenza from FNX Labs" \
-      org.opencontainers.image.licenses="GPL-2.0-only" \
-      org.opencontainers.image.base.name="docker.io/library/php:${PHP_VERSION}-apache-trixie" \
+      org.opencontainers.image.licenses="GPL-2.0-only AND MIT" \
+      org.opencontainers.image.base.name="php:${PHP_VERSION}-apache-trixie" \
       io.github.dgcosenza.phpmyadmin.version="${PMA_VERSION}" \
       io.github.dgcosenza.phpmyadmin.php="${PHP_VERSION}"
 
@@ -189,8 +201,7 @@ RUN set -eux; \
 COPY --from=pma-builder --chown=www-data:www-data /var/www/html /var/www/html
 COPY --chown=www-data:www-data config.inc.php /etc/phpmyadmin/config.inc.php
 COPY --chown=www-data:www-data helpers.php /etc/phpmyadmin/helpers.php
-COPY docker-entrypoint.sh /docker-entrypoint.sh
-RUN chmod 0755 /docker-entrypoint.sh
+COPY --chmod=0755 docker-entrypoint.sh /docker-entrypoint.sh
 
 EXPOSE 80
 

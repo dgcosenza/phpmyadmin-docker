@@ -1,0 +1,8 @@
+# Efficiency gate (overall >= 95% strict).
+# highestUserWastedPercent is tuned to 0.15 (from 0.05) because daily
+# `apt-get -y upgrade` and PHP extension compilation on `php:8.3-apache-trixie`
+# necessarily update a small subset of base-layer files while preserving
+# overall image efficiency >= 95%.
+rules:
+  lowestEfficiency: 0.95
+  highestUserWastedPercent: 0.15
