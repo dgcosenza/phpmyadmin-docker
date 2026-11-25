@@ -22,7 +22,7 @@ Maintained by **Daniel G. Cosenza from FNX Labs**.
   - Official phpMyAdmin 5.2.3 release (https://github.com/phpmyadmin/phpmyadmin/releases/tag/RELEASE_5_2_3).
   - phpMyAdmin release 5.2.3
 - Vulnerability gate: **0 fixable Critical/High** in Trivy and Grype (SBOM scan) (48 upstream-unfixed).
-- Published multi-arch digest (Docker Hub + GHCR): `dgcosenza/phpmyadmin@sha256:27b9ca6c036117d6b76e5d0fdb6de87b27618ad62268e3f1ac5e3fc32e28e98e` (Cosign OIDC signed + SPDX/CycloneDX SBOM + SLSA L3 provenance).
+- Published multi-arch digest (Docker Hub + GHCR): `dgcosenza/phpmyadmin@sha256:59e51fc2de6d3170641b184c7e5b8c410c9738ffa61778214fa311947f187a9f` (Cosign OIDC signed + SPDX/CycloneDX SBOM + SLSA L3 provenance).
 ---
 
 ---
