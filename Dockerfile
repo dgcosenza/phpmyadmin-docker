@@ -79,7 +79,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
 RUN set -eux; \
     apt-get update; \
-    apt-get install -y --no-install-recommends gnupg xz-utils unzip; \
+    apt-get install -y --no-install-recommends git gnupg xz-utils unzip; \
     rm -rf /var/lib/apt/lists/*; \
     \
     URL="https://files.phpmyadmin.net/phpMyAdmin/${PMA_VERSION}/phpMyAdmin-${PMA_VERSION}-all-languages.tar.xz"; \
