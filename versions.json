@@ -3,7 +3,7 @@
   "debian_version": "13.8",
   "pma_version": "5.2.3",
   "php_version": "8.3.37",
-  "digest": "pending-hub-publish",
+  "digest": "dgcosenza/phpmyadmin@sha256:a2bc893e1eb065b0540ab1b2a51b7c102390d79208f9ef60f8bb835ae60fd455",
   "trivy_fixable_critical_high": 0,
   "grype_fixable_critical_high": 0,
   "cves_seen": [
