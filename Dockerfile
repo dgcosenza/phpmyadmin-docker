@@ -103,8 +103,10 @@ RUN set -eux; \
     tar -xf /tmp/phpMyAdmin.tar.xz -C /var/www/html --strip-components=1; \
     rm -f /tmp/phpMyAdmin.tar.xz; \
     \
-    # Refresh production Composer dependencies to patch known vendor CVEs (Twig, Symfony) \
+    # Strip require-dev and dev-only VCS repositories, then refresh production \
+    # Composer dependencies to patch known vendor CVEs (Twig, Symfony). \
     cd /var/www/html; \
+    php -r '$j = json_decode(file_get_contents("composer.json"), true); unset($j["require-dev"]); $j["repositories"] = array_values(array_filter($j["repositories"] ?? [], fn($r) => ($r["type"] ?? "") !== "github")); file_put_contents("composer.json", json_encode($j, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n");'; \
     COMPOSER_ALLOW_SUPERUSER=1 COMPOSER_NO_INTERACTION=1 \
         composer update --no-dev --no-progress --prefer-dist --optimize-autoloader --with-all-dependencies; \
     rm -rf /root/.composer /tmp/*; \
