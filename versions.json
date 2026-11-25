@@ -1,0 +1,10 @@
+{
+  "last_updated": "2026-11-24",
+  "debian_version": "13",
+  "pma_version": "5.2.3",
+  "php_version": "8.3.37",
+  "digest": "pending-hub-publish",
+  "trivy_fixable_critical_high": 0,
+  "grype_fixable_critical_high": 0,
+  "cves_seen": []
+}

@@ -1,0 +1,1 @@
+Hardened phpMyAdmin on Debian 13 (trixie) with PHP 8.3, patched vendor deps, and daily CVE gates.
