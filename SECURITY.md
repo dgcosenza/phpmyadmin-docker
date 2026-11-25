@@ -16,6 +16,8 @@ Only the latest daily build (`latest`) receives security updates. Immutable date
 
 **Do not open a public issue** for security vulnerabilities.
 
-Report privately through GitHub's private vulnerability reporting: open the repository's **Security** tab and select **Report a vulnerability**.
+Report privately through GitHub Security Advisories: open the repository's **Security** tab or submit a private advisory directly at [dgcosenza/phpmyadmin-docker Security Advisories](https://github.com/dgcosenza/phpmyadmin-docker/security/advisories/new).
+
+For upstream phpMyAdmin vulnerabilities, follow the [phpMyAdmin Security Policy](https://www.phpmyadmin.net/security/).
 
 We aim to acknowledge reports within 48 hours and ship fixes in the next daily build or an immediate manual dispatch.
