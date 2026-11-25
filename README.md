@@ -29,8 +29,19 @@ A hardened, multi-arch **phpMyAdmin** container image on **Debian 13 (`trixie`)*
 | PHP + Apache | `php:8.3.37-apache-trixie` |
 | Base OS | `Debian 13.8 (trixie)` |
 | Architectures | `linux/amd64, linux/arm64` |
+| Uncompressed size (per arch) | `amd64: 194.8 MB, arm64: 592.4 MB` |
 | Last verified build (UTC) | `2026-11-25` |
-| Security gate (Trivy + Grype on SBOM) | **0 fixable Critical/High** |
+| Published multi-arch digest | `dgcosenza/phpmyadmin@sha256:435284607fcd2466f6dd7f7c742ceca259e5090e171f15de96f386696672c284` |
+| GHCR mirror | `ghcr.io/dgcosenza/phpmyadmin@sha256:435284607fcd2466f6dd7f7c742ceca259e5090e171f15de96f386696672c284` |
+| Supply chain | Cosign OIDC signed + SPDX & CycloneDX SBOM attestations + SLSA Build L3 provenance |
+| Security gate (Trivy + Grype on SBOM) | **0 fixable Critical/High** (48 upstream-unfixed) |
+
+**Recent upstream changes:**
+- **phpMyAdmin:** `5.2.3` -> `5.2.3`
+- **PHP (Debian 13 Apache):** `8.3.37` -> `8.3.37`
+- **Upstream version changed:** `no`
+- Official phpMyAdmin 5.2.3 release (https://github.com/phpmyadmin/phpmyadmin/releases/tag/RELEASE_5_2_3).
+- phpMyAdmin release 5.2.3
 <!-- versions:end -->
 
 ---
