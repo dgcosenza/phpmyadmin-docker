@@ -27,9 +27,9 @@
   "base_digest": "sha256:fb5e44981a84757b95cd29440f534509f42a9766382c8c83bfd404924a62379b",
   "debian_version": "13.8",
   "build_date": "2026-11-25",
-  "built_at_utc": "2026-11-25T19:17:16Z",
-  "image_digest": "dgcosenza/phpmyadmin@sha256:59e51fc2de6d3170641b184c7e5b8c410c9738ffa61778214fa311947f187a9f",
-  "ghcr_digest": "ghcr.io/dgcosenza/phpmyadmin@sha256:59e51fc2de6d3170641b184c7e5b8c410c9738ffa61778214fa311947f187a9f",
+  "built_at_utc": "2026-11-25T22:05:03Z",
+  "image_digest": "dgcosenza/phpmyadmin@sha256:debb2c92cb38c0fc5b90dd004ef7ab26938cbb36db8476d1b52b680dc5608b40",
+  "ghcr_digest": "ghcr.io/dgcosenza/phpmyadmin@sha256:debb2c92cb38c0fc5b90dd004ef7ab26938cbb36db8476d1b52b680dc5608b40",
   "fixable_critical_high": 0,
   "unfixed_cves": [
     "CVE-2013-7445",
