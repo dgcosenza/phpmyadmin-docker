@@ -8,6 +8,14 @@ Maintained by **Daniel G. Cosenza from FNX Labs**.
 
 ## [Unreleased]
 
+
+## [2026-11-25]
+
+### Changed
+- Rebuilt phpMyAdmin `5.2.3` on `php:8.3.37-apache-trixie` (Debian `13.8`) (`pending-hub-publish`)
+
+### Security
+- Trivy and Grype gates verified: 0 fixable Critical/High vulnerabilities.
 ## [2026-11-24]
 
 ### Added

@@ -12,17 +12,17 @@ Maintained by **Daniel G. Cosenza from FNX Labs**.
 ## Current Versions
 
 <!-- versions:start -->
-_Last verified build: **2026-11-24** (UTC)_
+_Last verified build: **2026-11-25** (UTC)_
 
 | Component | Resolved Version |
 |-----------|------------------|
 | phpMyAdmin | `5.2.3` (GPG-verified + Composer security-patched) |
 | PHP + Apache | `php:8.3.37-apache-trixie` |
-| Base OS | Debian `13` (`trixie`) |
+| Base OS | Debian `13.8` (`trixie`) |
 | Fixable Critical/High (Trivy / Grype) | `0` / `0` |
 
 **Recent upstream updates:**
-- Initial hardened Debian 13 release for phpMyAdmin 5.2.3 with patched Twig and Symfony vendor packages.
+- Daily Debian 13 OS + Composer vendor security refresh and CVE-gated verification.
 <!-- versions:end -->
 
 ## Supported Tags
