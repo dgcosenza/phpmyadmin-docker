@@ -29,10 +29,10 @@ A hardened, multi-arch **phpMyAdmin** container image on **Debian 13 (`trixie`)*
 | PHP + Apache | `php:8.3.37-apache-trixie` |
 | Base OS | `Debian 13.8 (trixie)` |
 | Architectures | `linux/amd64, linux/arm64` |
-| Uncompressed size (per arch) | `amd64: 194.8 MB, arm64: 592.4 MB` |
+| Uncompressed size (per arch) | `amd64: 195.6 MB, arm64: 595.0 MB` |
 | Last verified build (UTC) | `2026-11-25` |
-| Published multi-arch digest | `dgcosenza/phpmyadmin@sha256:115c9fda322f311914931d0740e4d6cda14e148ee7d40f4c4e0211fb7a324b02` |
-| GHCR mirror | `ghcr.io/dgcosenza/phpmyadmin@sha256:115c9fda322f311914931d0740e4d6cda14e148ee7d40f4c4e0211fb7a324b02` |
+| Published multi-arch digest | `dgcosenza/phpmyadmin@sha256:27b9ca6c036117d6b76e5d0fdb6de87b27618ad62268e3f1ac5e3fc32e28e98e` |
+| GHCR mirror | `ghcr.io/dgcosenza/phpmyadmin@sha256:27b9ca6c036117d6b76e5d0fdb6de87b27618ad62268e3f1ac5e3fc32e28e98e` |
 | Supply chain | Cosign OIDC signed + SPDX & CycloneDX SBOM attestations + SLSA Build L3 provenance |
 | Security gate (Trivy + Grype on SBOM) | **0 fixable Critical/High** (48 upstream-unfixed) |
 
