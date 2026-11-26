@@ -34,7 +34,7 @@ A hardened, multi-arch **phpMyAdmin** container image on **Debian 13 (`trixie`)*
 | Published multi-arch digest | `dgcosenza/phpmyadmin@sha256:7a591c05be41af820867000a3f45c26d3dc6852a6c36ffddfc9946a27d975c41` |
 | GHCR mirror | `ghcr.io/dgcosenza/phpmyadmin@sha256:7a591c05be41af820867000a3f45c26d3dc6852a6c36ffddfc9946a27d975c41` |
 | Supply chain | Cosign OIDC signed + SPDX & CycloneDX SBOM attestations + SLSA Build L3 provenance |
-| Security gate (Trivy + Grype on SBOM) | **0 fixable Critical/High** (48 upstream-unfixed) |
+| Security gate (Trivy + Grype on SBOM) | **0 fixable findings of any severity** (48 upstream-unfixed) |
 
 **Recent upstream changes:**
 - **phpMyAdmin:** `5.2.3` -> `5.2.3`
@@ -230,7 +230,7 @@ gh attestation verify oci://ghcr.io/dgcosenza/phpmyadmin:latest --owner dgcosenz
 ## Security
 
 - **Preflight gates:** Every push and PR runs **Hadolint** (blocking on warning+), **Gitleaks** secret scanning across git history, and **public-content/attribution** checks.
-- **Vulnerability scan policy:** Every build generates **SPDX** and **CycloneDX** SBOMs with **Syft** per architecture, scans with **Trivy** (OS + PHP Composer + JS: table, JSON, SARIF upload, blocking `--ignore-unfixed` gate) and **Grype** scanning the SPDX SBOM (`--only-fixed --fail-on high`), and enforces a **Dive** efficiency gate (`>= 95%`).
+- **Vulnerability scan policy (all severities with a fix):** Every build generates **SPDX** and **CycloneDX** SBOMs with **Syft** per architecture, scans with **Trivy** (OS + PHP Composer + JS: table, JSON, SARIF upload, blocking `--ignore-unfixed` gate) and **Grype** scanning the SPDX SBOM (`--only-fixed --fail-on negligible`), and enforces a **Dive** efficiency gate (`>= 95%`).
 - **Hardening:** `expose_php=Off`, `allow_url_fopen=Off`, `session.cookie_httponly=1`, `session.use_strict_mode=1`, read-only web root, and Composer removed from the final runtime stage.
 - **Dependency automation:** Renovate (`renovate.json`) pins base image digests and GitHub Action commit SHAs; Dependabot security alerts and OpenSSF Scorecard monitoring are enabled.
 - See [`SECURITY.md`](https://github.com/dgcosenza/phpmyadmin-docker/blob/main/SECURITY.md) for private disclosure instructions.
@@ -254,7 +254,7 @@ docker buildx build --platform linux/amd64 --load \
 
 1. **Preflight & upstream check:** Runs public-content checks, **Hadolint**, and **Gitleaks**; queries the authenticated GitHub API (`phpmyadmin/phpmyadmin`) and Docker Hub (`library/php` `8.3.x-apache-trixie`, `library/composer`) for digest-pinned base images, emitting `upstream-changes.md`.
 2. **Multi-arch no-cache rebuild:** Rebuilds natively on `linux/amd64` and `linux/arm64` runners with `--no-cache` on schedule, upgrades Debian 13 packages, verifies the phpMyAdmin tarball via SHA-256 + GPG (`3D06A59ECE730EB71B511C17CE752F178259BD92`), and refreshes production Composer dependencies in a discarded stage.
-3. **Smoke, Dive & vulnerability gates:** Runs [`tests/smoke.sh`](https://github.com/dgcosenza/phpmyadmin-docker/blob/main/tests/smoke.sh) natively on both architectures, enforces the **Dive** efficiency gate (`>= 95%`), generates **Syft** SPDX + CycloneDX SBOMs per arch, and gates publication on **0 fixable Critical/High** in both **Trivy** and **Grype** (scanning the SPDX SBOM).
+3. **Smoke, Dive & vulnerability gates:** Runs [`tests/smoke.sh`](https://github.com/dgcosenza/phpmyadmin-docker/blob/main/tests/smoke.sh) natively on both architectures, enforces the **Dive** efficiency gate (`>= 95%`), generates **Syft** SPDX + CycloneDX SBOMs per arch, and gates publication on **0 fixable findings of any severity** in both **Trivy** and **Grype** (scanning the SPDX SBOM).
 4. **Dual-registry publish & supply-chain signing:** Assembles the multi-arch OCI manifest index on **GHCR** (`ghcr.io/dgcosenza/phpmyadmin`) and mirrors the identical digest to **Docker Hub** (`dgcosenza/phpmyadmin`) with tags `latest`, `<version>`, `<version>-<YYYYMMDD>`, and `sha-<short>`; signs every digest and attaches SPDX/CycloneDX SBOM attestations via **Cosign** keyless OIDC; emits **SLSA Build L3** provenance; and publishes a signed **GitHub Release** with checksums and SBOMs.
 5. **Automated documentation sync:** Commits updated `versions.json`, the README `Current Versions` block, and a dated `CHANGELOG.md` entry via `github-actions[bot]` (`[skip ci]`, validated by `public-check.sh`), then syncs the Docker Hub overview and short description.
 6. **Failure alerting:** Opens or updates a single GitHub issue labeled `ci-failure` on any `main` or scheduled failure, and auto-closes it on the next green run.
