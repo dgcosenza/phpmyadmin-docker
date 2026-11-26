@@ -7,6 +7,7 @@
 [![SLSA Level 3](https://img.shields.io/badge/SLSA-Level%203-brightgreen.svg)](#supply-chain-verification)
 [![Architectures](https://img.shields.io/badge/arch-amd64%20%7C%20arm64-informational.svg)](#supported-architectures)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/dgcosenza/phpmyadmin-docker/badge)](https://scorecard.dev/viewer/?uri=github.com/dgcosenza/phpmyadmin-docker)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/17168/badge)](https://www.bestpractices.dev/projects/17168)
 [![Docker Pulls](https://img.shields.io/docker/pulls/dgcosenza/phpmyadmin)](https://hub.docker.com/r/dgcosenza/phpmyadmin)
 [![Docker Image Size](https://img.shields.io/docker/image-size/dgcosenza/phpmyadmin/latest)](https://hub.docker.com/r/dgcosenza/phpmyadmin)
 [![Latest Release](https://img.shields.io/github/v/release/dgcosenza/phpmyadmin-docker?label=version)](https://github.com/dgcosenza/phpmyadmin-docker/releases)
