@@ -31,9 +31,9 @@ A hardened, multi-arch **phpMyAdmin** container image on **Debian 13 (`trixie`)*
 | Base OS | `Debian 13.8 (trixie)` |
 | Architectures | `linux/amd64, linux/arm64` |
 | Uncompressed size (per arch) | `amd64: 195.6 MB, arm64: 595.0 MB` |
-| Last verified build (UTC) | `2026-11-26` |
-| Published multi-arch digest | `dgcosenza/phpmyadmin@sha256:b3759bd1c05e74afe6619fabc97a81c3db933616586f5d2218d22c4fc4c63882` |
-| GHCR mirror | `ghcr.io/dgcosenza/phpmyadmin@sha256:b3759bd1c05e74afe6619fabc97a81c3db933616586f5d2218d22c4fc4c63882` |
+| Last verified build (UTC) | `2026-11-27` |
+| Published multi-arch digest | `dgcosenza/phpmyadmin@sha256:ad97abbaf47f63b9d4fd1f2e5d041c4be02795bb733b7d9a7410f266e66e9772` |
+| GHCR mirror | `ghcr.io/dgcosenza/phpmyadmin@sha256:ad97abbaf47f63b9d4fd1f2e5d041c4be02795bb733b7d9a7410f266e66e9772` |
 | Supply chain | Cosign OIDC signed + SPDX & CycloneDX SBOM attestations + SLSA Build L3 provenance |
 | Security gate (Trivy + Grype on SBOM) | **0 fixable findings of any severity** (48 upstream-unfixed) |
 

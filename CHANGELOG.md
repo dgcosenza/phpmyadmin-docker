@@ -10,6 +10,22 @@ Maintained by **Daniel G. Cosenza from FNX Labs**.
 
 <!-- changelog:auto -->
 
+## [5.2.3] — 2026-11-27
+
+### Automated Daily Build
+- Verified components: phpMyAdmin `5.2.3 (GPG-verified + Composer security-patched)`, PHP + Apache `php:8.3.37-apache-trixie`, Base OS `Debian 13.8 (trixie)`.
+- Architectures verified: `linux/amd64, linux/arm64` (native smoke tests + Dive efficiency gate).
+- Upstream changes:
+  - **phpMyAdmin:** `5.2.3` -> `5.2.3`
+  - **PHP (Debian 13 Apache):** `8.3.37` -> `8.3.37`
+  - **Upstream version changed:** `no`
+  - Official phpMyAdmin 5.2.3 release (https://github.com/phpmyadmin/phpmyadmin/releases/tag/RELEASE_5_2_3).
+  - phpMyAdmin release 5.2.3
+- Vulnerability gate: **0 fixable findings of any severity** in Trivy and Grype (SBOM scan) (48 upstream-unfixed).
+- Published multi-arch digest (Docker Hub + GHCR): `dgcosenza/phpmyadmin@sha256:ad97abbaf47f63b9d4fd1f2e5d041c4be02795bb733b7d9a7410f266e66e9772` (Cosign OIDC signed + SPDX/CycloneDX SBOM + SLSA L3 provenance).
+
+---
+
 ## [5.2.3] — 2026-11-26
 
 ### Automated Daily Build
